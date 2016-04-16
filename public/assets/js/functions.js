@@ -1,0 +1,1 @@
+$(function(){$(".trigger").on("click",function(o){$("nav ul.menu").slideToggle()}),$(".owl-carousel").owlCarousel({margin:10,startPosition:-1,autoPlay:!0}),$(".next").click(function(){$(".owl-carousel").trigger("owl.next")}),$(".prev").click(function(){$(".owl-carousel").trigger("owl.prev")})});
