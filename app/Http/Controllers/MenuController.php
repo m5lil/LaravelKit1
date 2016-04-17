@@ -10,8 +10,11 @@ class MenuController extends Controller
 {
     public function index()
     {
-    	$menus = Menu::orderBy('order','asc')->get();
-        return view('admin.menu.index',compact('menus'));
+    	$menus = Menu::orderBy('parent_id','asc')->orderBy('order','asc')->get();
+        $title = Menu::lists('title', 'id');
+        $title = array_add($title, '0', 'بدون');
+        // dd($title);
+        return view('admin.menu.index',compact('menus','title'));
     }
 
 
@@ -61,7 +64,8 @@ class MenuController extends Controller
     public function destroy($id)
     {
      	$menu = Menu::findOrfail($id);
-     	$menu->delete();
+        $menu->delete();
+     	$menu->children()->delete();
         return redirect('cp/menu');
     }
 

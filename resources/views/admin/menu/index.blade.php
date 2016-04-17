@@ -12,7 +12,6 @@
     <div class="panel panel-default ">
       <div class="panel-heading"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>@yield('title')</div>
       <div class="panel-body">
-
             <form class = 'col s3' method = 'get' action = '{{url('/cp/menu/create')}}'>
                 <button class = 'btn btn-primary' type = 'submit'>Create New Menu</button>
             </form>
@@ -25,21 +24,41 @@
                     <th>menu_name</th>
                     <th>url</th>
                     <th>order</th>
+                    <th>Parent</th>
                     <th>actions</th>
                 </thead>
                 <tbody>
                     @foreach($menus as $value)
-                    <tr>
-                        <td>{{$value->id}}</td>
-                        <td>{{$value->menu_name}}</td>
-                        <td>{{$value->url}}</td>
-                        <td>{{$value->order}}</td>
-                        <td>
-                                <a href = '/cp/menu/{{$value->id}}/edit'><i class = 'material-icons'>edit</i></a>
-                                <a href = '/cp/menu/{{$value->id}}'><i class = 'material-icons'>info</i></a>
-                                <a href = "/cp/menu/{{$value->id}}/delete" ><i class = 'material-icons'>delete</i></a>
-                        </td>
-                    </tr>
+                      @if ($value->parent_id == 0)
+                        <tr>
+                          <td>{{$value->id}}</td>
+                          <td>{{$value->title}}</td>
+                          <td>{{$value->url}}</td>
+                          <td>{{$value->order}}</td>
+                          <td>{{ $title[$value->parent_id] }}</td>
+                          <td>
+                              <a href = '/cp/menu/{{$value->id}}/edit'><i class = 'material-icons'>edit</i></a>
+                              <a href = '/cp/menu/{{$value->id}}'><i class = 'material-icons'>info</i></a>
+                              <a href = "/cp/menu/{{$value->id}}/delete" ><i class = 'material-icons'>delete</i></a>
+                          </td>
+                        </tr>
+                        @if ( ! $value->children->isEmpty() )
+                          @foreach ($value->children as $subMenuItem)
+                            <tr>
+                              <td>{{$subMenuItem->id}}</td>
+                              <td> -- {{$subMenuItem->title}}</td>
+                              <td>{{$subMenuItem->url}}</td>
+                              <td>{{$subMenuItem->order}}</td>
+                              <td>{{ $title[$subMenuItem->parent_id] }}</td>
+                              <td>
+                                  <a href = '/cp/menu/{{$value->id}}/edit'><i class = 'material-icons'>edit</i></a>
+                                  <a href = '/cp/menu/{{$value->id}}'><i class = 'material-icons'>info</i></a>
+                                  <a href = "/cp/menu/{{$value->id}}/delete" ><i class = 'material-icons'>delete</i></a>
+                              </td>
+                            </tr>
+                          @endforeach
+                        @endif
+                      @endif
                     @endforeach
                 </tbody>
             </table>

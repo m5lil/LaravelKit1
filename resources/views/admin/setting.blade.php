@@ -15,7 +15,7 @@
             {{ $setting->set_slug }}
           </div>
           <div class="col-md-9">
-            @if($setting->type == 0)
+            @if($setting->type == 1)
               {!! Form::text($setting->set_name, $setting->value , ['class' => 'form-control']) !!}
             @else
               {!! Form::textarea($setting->set_name, $setting->value , ['class' => 'form-control']) !!}

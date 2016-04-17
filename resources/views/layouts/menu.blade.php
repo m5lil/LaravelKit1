@@ -8,7 +8,7 @@
   @if( ! $menuItem->children->isEmpty() )
       <ul class="dropdown-menu" role="menu">
           @foreach($menuItem->children as $subMenuItem)
-              <li><a href="{{ $subMenuItem->url }}">{{ $subMenuItem->title }}</a></li>
+            <li><a href="{{ $subMenuItem->url }}">{{ $subMenuItem->title }}</a></li>
           @endforeach
       </ul>
   @endif

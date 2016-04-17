@@ -43,6 +43,13 @@ Route::group(['middleware' => 'admin'], function () {
   Route::post('/cp/menu/{id}/update','MenuController@update');
   Route::get('/cp/menu/{id}/delete','MenuController@destroy');
 
+  ///////////////////////////  Blog  ////////////////////////////////
+  Route::resource('/cp/posts','PostController', ['except' => ['show']]);
+  Route::post('/cp/posts/{id}/update','PostController@update');
+  Route::get('/cp/posts/{id}/delete','PostController@destroy');
+  
+
+
 });
 
 
@@ -65,5 +72,19 @@ Route::group(['middleware' => 'web'], function () {
 
   Route::get('/home', 'HomeController@index');
 
+    //users profile
+  Route::get('/user/{id}','UserController@author')->where('id', '[0-9]+');
+  // display list of posts
+  Route::get('/user/{id}/posts','UserController@user_posts')->where('id', '[0-9]+');
+
+  Route::get('/user/{id}/all-posts','UserController@user_posts_all');
+  // display user's drafts
+  Route::get('/user/{id}/drafts','UserController@user_posts_draft');
+  // display single post
+  Route::get('/posts/{slug}','PostController@show')->where('slug', '[A-Za-z0-9-_]+');
+
+  Route::post('/comment/add','CommentController@store');
+  // delete comment
+  Route::post('/comment/delete/{id}','CommentController@distroy');
 
 });
