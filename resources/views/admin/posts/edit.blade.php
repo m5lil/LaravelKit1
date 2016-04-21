@@ -15,24 +15,33 @@
 
 
 
-{!! Form::model($post, array('class' => 'form-horizontal', 'id' => 'form-with-validation', 'method' => 'PATCH', 'route' => array('cp.posts.update', $post->id))) !!}
+{!! Form::model($post, array('files' => true,'class' => 'form-horizontal', 'id' => 'form-with-validation', 'method' => 'PATCH', 'route' => array('cp.posts.update', $post->id))) !!}
 
 
-<div class="form-group">
-    {!! Form::label('title', 'title*', array('class'=>'col-sm-2 control-label')) !!}
-    <div class="col-sm-10">
-        {!! Form::text('title', old('title',$post->title), array('class'=>'form-control')) !!}
-        <p class="help-block">title of product</p>
-    </div>
-</div>
+              <div class="form-group">
+                  {!! Form::label('title', 'title*', array('class'=>'col-sm-2 control-label')) !!}
+                  <div class="col-sm-10">
+                      {!! Form::text('title', old('title',$post->title), array('class'=>'form-control')) !!}
+                      <p class="help-block">title of product</p>
+                  </div>
+              </div>
 
-<div class="form-group">
-    {!! Form::label('body', 'body*', array('class'=>'col-sm-2 control-label')) !!}
-    <div class="col-sm-10">
-        {!! Form::textarea('body', old('body',$post->body), array('class'=>'form-control')) !!}
-        <p class="help-block">body of product</p>
-    </div>
-</div>
+              <div class="form-group">
+                  {!! Form::label('body', 'body*', array('class'=>'col-sm-2 control-label')) !!}
+                  <div class="col-sm-10">
+                      {!! Form::textarea('body', old('body',$post->body), array('class'=>'form-control')) !!}
+                      <p class="help-block">body of product</p>
+                  </div>
+              </div>
+              <div class="form-group">
+                  {!! Form::label('photo', 'Photo', array('class'=>'col-sm-2 control-label')) !!}
+                  <div class="col-sm-10">
+                      {!! Form::file('photo') !!}
+                      {!! Form::hidden('photo_w', 4096) !!}
+                      {!! Form::hidden('photo_h', 4096) !!}
+                      
+                  </div>
+              </div>
   
                 @if($post->active == '1')
                   {!! Form::submit('تعديل', array('name' => 'publish','class' => 'btn btn-primary')) !!}

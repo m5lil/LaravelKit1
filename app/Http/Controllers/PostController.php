@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-
 use App\Posts;
 use App\User;
+use App\Cat;
+use Schema;
 use Redirect;
-use App\Http\Requests\PostFormRequest;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\FileUploadTrait;
 
 class PostController extends Controller
 {
@@ -19,8 +20,9 @@ class PostController extends Controller
 		$posts = Posts::orderBy('created_at','desc')->paginate(5);
 		//page heading
 		$title = 'Latest Posts';
+		$cats = Cat::lists('name','id')->toArray();
 		//return home.blade.php template from resources/views folder
-		return view('admin.posts.index')->withPosts($posts)->withTitle($title);
+		return view('admin.posts.index')->withPosts($posts)->withTitle($title)->withCats($cats);
 	}
 
 	public function create()
@@ -28,11 +30,13 @@ class PostController extends Controller
 		return view('admin.posts.create');
 	}
 
-	public function store(PostFormRequest $request)
+	public function store(Request $request)
 	{
+		$request = $this->saveFiles($request);
 		$post = new Posts();
 		$post->title = $request->get('title');
 		$post->body = $request->get('body');
+		$post->photo = $request->get('photo');
 		$post->slug = str_slug($post->title);
 		$post->author_id = $request->user()->id;
 		if($request->has('save'))
@@ -73,6 +77,7 @@ class PostController extends Controller
 		$post = Posts::find($id);
 		// if($post && ($post->author_id == $request->user()->id || $request->user()->is_admin()))
 		// {
+
 		  $title = $request->input('title');
 		  $slug = str_slug($title);
 		  $duplicate = Posts::where('slug',$slug)->first();
@@ -87,8 +92,10 @@ class PostController extends Controller
 		      $post->slug = $slug;
 		    }
 		  }
+		  $request = $this->saveFiles($request);
 		  $post->title = $title;
 		  $post->body = $request->input('body');
+		  $post->photo = $request->input('photo');
 		  if($request->has('save'))
 		  {
 		    $post->active = 0;

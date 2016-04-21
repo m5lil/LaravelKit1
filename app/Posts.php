@@ -17,6 +17,10 @@ class Posts extends Model
 	{
 		return $this->belongsTo('App\User','author_id');
 	}
+    public function cat()
+	{
+		return $this->belongsTo('App\Cat','cat_id');
+	}
 
 
 }

@@ -22,12 +22,12 @@
         @endif
 
 
-{!! Form::model($products, array('files' => true, 'class' => 'form-horizontal', 'id' => 'form-with-validation', 'method' => 'PATCH', 'route' => array('cp.products.update', $products->id))) !!}
+{!! Form::model($sliders, array('files' => true, 'class' => 'form-horizontal', 'id' => 'form-with-validation', 'method' => 'PATCH', 'route' => array('cp.sliders.update', $sliders->id))) !!}
 
 <div class="form-group">
     {!! Form::label('name', 'Name*', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::text('name', old('name',$products->name), array('class'=>'form-control')) !!}
+        {!! Form::text('name', old('name',$sliders->name), array('class'=>'form-control')) !!}
         <p class="help-block">name of product</p>
     </div>
 </div>
@@ -43,7 +43,7 @@
 </div><div class="form-group">
     {!! Form::label('content', 'Content', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::textarea('content', old('content',$products->content), array('class'=>'form-control ckeditor')) !!}
+        {!! Form::textarea('content', old('content',$sliders->content), array('class'=>'form-control ckeditor')) !!}
         
     </div>
 </div>

@@ -74,7 +74,7 @@
             </div>
         </div>
     </nav>
-
+    
     @yield('content')
 
     <!-- JavaScripts -->

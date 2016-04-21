@@ -13,46 +13,37 @@
       <div class="panel-heading"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>@yield('title')</div>
       <div class="panel-body">
 
-@if ($posts->count())
+@if ($page->count())
     <div class="portlet box green">
         <div class="portlet-title">
             <div class="caption">123</div>
         </div>
         <div class="portlet-body">
             <table class="table table-striped table-hover table-responsive datatable" id="datatable">
-            {{print_r($cats)}}
                 <thead>
                     <tr>
                         <th>
                             {!! Form::checkbox('delete_all',1,false,['class' => 'mass']) !!}
                         </th>
                         <th>Name</th>
-                        <th>Photo</th>
-                        <th>&nbsp;</th>
+                        <th>content</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach ($posts as $post )
+                    @foreach ($page as $row)
                         <tr>
-                            <td><a href="{{ url('/posts/'.$post->slug) }}">{{ $post->title }}</td>
-                            <td>{{ $post->title }}</td>
-                            <td>{!! str_limit(e($post->body), $limit = 15, $end = '... <a href='.url("/posts/".$post->slug).'>Read More</a>') !!}</td>
                             <td>
-                            @if ( array_key_exists($post->cat_id, $cats) )
-                                {{ $cats[$post->cat_id] }}
-                            @endif
+                                {!! Form::checkbox('del-'.$row->id,1,false,['class' => 'single','data-id'=> $row->id]) !!}
                             </td>
+                            <td>{{ $row->name }}</td>
+                            <td>{{ str_limit(e($row->content), 15, '...|') }}</td>
                             <td>
-                                <a href = '/cp/posts/{{$post->id}}/edit'><i class = 'material-icons'>edit</i></a>
-                                <a href = '/cp/posts/{{$post->id}}'><i class = 'material-icons'>info</i></a>
-                                <a href = "/cp/posts/{{$post->id}}/delete" ><i class = 'material-icons'>delete</i></a>
+                                s
                             </td>
-
                         </tr>
                     @endforeach
-                    
                 </tbody>
             </table>
             <div class="row">
@@ -62,7 +53,6 @@
                     </button>
                 </div>
             </div>
-            {!! $posts->render() !!}
         </div>
 	</div>
 @else
@@ -82,11 +72,11 @@
 
 @endsection
 
-@section('script')
+@section('js')
     <script>
         $(document).ready(function () {
             $('#delete').click(function () {
-                if (window.confirm('{{ trans('quickadmin::templates.templates-view_index-are_you_sure') }}')) {
+                if (window.confirm('sas')) {
                     var send = $('#send');
                     var mass = $('.mass').is(":checked");
                     if (mass == true) {

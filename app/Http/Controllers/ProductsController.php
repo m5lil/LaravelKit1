@@ -46,9 +46,9 @@ class ProductsController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-    $request = $this->saveFiles($request);
+    	$request = $this->saveFiles($request);
 		Products::create($request->all());
-		return redirect('cp/products/index');
+		return redirect('cp/products');
 	}
 
 	/**
@@ -72,9 +72,8 @@ class ProductsController extends Controller {
 	public function update($id, Request $request)
 	{
 		$products = Products::findOrFail($id);
-
+		
         $request = $this->saveFiles($request);
-
 		$products->update($request->all());
 
 		return redirect('cp/products');

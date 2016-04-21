@@ -30,13 +30,23 @@ Route::group(['middleware' => 'admin'], function () {
 
   ///////////////////////////  Pages  ///////////////////////////////
   Route::resource('/cp/page','PageController');
-  Route::post('/cp/page/{p_slug}/update','PageController@update');
-  Route::get('/cp/page/{p_slug}/delete','PageController@destroy');
+  Route::post('/cp/page/{id}/update','PageController@update');
+  Route::get('/cp/page/{id}/delete','PageController@destroy');
+
+  ///////////////////////////  Categories  ///////////////////////////////
+  Route::resource('/cp/cat','CatController');
+  Route::post('/cp/cat/{id}/update','CatController@update');
+  Route::get('/cp/cat/{id}/delete','CatController@destroy');
 
   ///////////////////////////  Products  ////////////////////////////
   Route::resource('/cp/products','ProductsController', ['except' => ['show']]);
   Route::post('/cp/products/{id}/update','ProductsController@update');
   Route::get('/cp/products/{id}/delete','ProductsController@destroy');
+
+  ///////////////////////////  Products  ////////////////////////////
+  Route::resource('/cp/sliders','SliderController', ['except' => ['show']]);
+  Route::post('/cp/sliders/{id}/update','SliderController@update');
+  Route::get('/cp/sliders/{id}/delete','SliderController@destroy');
 
   ///////////////////////////  Menu  ////////////////////////////////
   Route::resource('/cp/menu','MenuController', ['except' => ['show']]);
@@ -48,6 +58,11 @@ Route::group(['middleware' => 'admin'], function () {
   Route::post('/cp/posts/{id}/update','PostController@update');
   Route::get('/cp/posts/{id}/delete','PostController@destroy');
   
+  ///////////////////////////  Msg  ////////////////////////////////
+  Route::resource('/cp/msg','MsgController',  ['except' => ['create','store']]);
+  Route::post('/cp/msg/{id}/update','MsgController@update');
+  Route::get('/cp/msg/{id}/delete','MsgController@destroy');
+
 
 
 });
@@ -86,5 +101,12 @@ Route::group(['middleware' => 'web'], function () {
   Route::post('/comment/add','CommentController@store');
   // delete comment
   Route::post('/comment/delete/{id}','CommentController@distroy');
+  // delete comment
+  Route::get('/{slug}', 'PageController@show')->where('slug', '[A-Za-z0-9-_]+');
 
+  Route::get('/cat/{slug}', 'CatController@show')->where('slug', '[A-Za-z0-9-_]+');
+
+  Route::get('/contact','MsgController@create');
+
+  Route::post('/contact','MsgController@store');
 });

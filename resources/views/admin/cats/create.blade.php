@@ -21,36 +21,20 @@
         	</div>
         @endif
 
-
-{!! Form::model($products, array('files' => true, 'class' => 'form-horizontal', 'id' => 'form-with-validation', 'method' => 'PATCH', 'route' => array('cp.products.update', $products->id))) !!}
+{!! Form::open(array('action' => 'CatController@store', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}
 
 <div class="form-group">
     {!! Form::label('name', 'Name*', array('class'=>'col-sm-2 control-label')) !!}
     <div class="col-sm-10">
-        {!! Form::text('name', old('name',$products->name), array('class'=>'form-control')) !!}
-        <p class="help-block">name of product</p>
+        {!! Form::text('name', old('name'), array('class'=>'form-control')) !!}
+        <p class="help-block">name of Page</p>
     </div>
 </div>
 
-<div class="form-group">
-    {!! Form::label('photo', 'Photo', array('class'=>'col-sm-2 control-label')) !!}
-    <div class="col-sm-10">
-        {!! Form::file('photo') !!}
-        {!! Form::hidden('photo_w', 4096) !!}
-        {!! Form::hidden('photo_h', 4096) !!}
-        
-    </div>
-</div><div class="form-group">
-    {!! Form::label('content', 'Content', array('class'=>'col-sm-2 control-label')) !!}
-    <div class="col-sm-10">
-        {!! Form::textarea('content', old('content',$products->content), array('class'=>'form-control ckeditor')) !!}
-        
-    </div>
-</div>
 
 <div class="form-group">
     <div class="col-sm-10 col-sm-offset-2">
-      {!! Form::submit('حفظ', array('class' => 'btn btn-primary')) !!}
+      {!! Form::submit( trans('quickadmin::templates.templates-view_create-create') , array('class' => 'btn btn-primary')) !!}
     </div>
 </div>
 

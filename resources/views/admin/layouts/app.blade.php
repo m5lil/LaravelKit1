@@ -102,13 +102,14 @@
 		<div class="row">
 			<div class="col-md-12">
 
-         @if (Session::has('message'))
-	      <div class="flash alert-info">
-	        <p class="panel-body">
-	          {{ Session::get('message') }}
-	        </p>
-	      </div>
-	      @endif
+                    @if (Session('message'))
+                      <div class="flash alert-info">
+                        <p class="panel-body">
+                          {{ Session::get('message') }}
+                          {{Session::forget('message')}}
+                        </p>
+                      </div>
+                      @endif
 	      
 		  @if ($errors->any())
 	      <div class='flash alert-danger'>
