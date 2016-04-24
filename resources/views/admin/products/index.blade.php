@@ -1,32 +1,20 @@
 @extends('admin.layouts.app')
 
 @section('title')
-  الصفحات
-@endsection
-
-@section('css')
-  <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
+  المنتجات
 @endsection
 
 @section('section.content')
-    <div class="panel panel-default ">
-      <div class="panel-heading"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>@yield('title')</div>
-      <div class="panel-body">
 
 @if ($products->count())
-    <div class="portlet box green">
-        <div class="portlet-title">
-            <div class="caption">123</div>
-        </div>
-        <div class="portlet-body">
             <table class="table table-striped table-hover table-responsive datatable" id="datatable">
                 <thead>
                     <tr>
                         <th>
-                            {!! Form::checkbox('delete_all',1,false,['class' => 'mass']) !!}
+                            #
                         </th>
-                        <th>Name</th>
-                        <th>Photo</th>
+                        <th>الإسم</th>
+                        <th>الصورة</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -35,26 +23,18 @@
                     @foreach ($products as $row)
                         <tr>
                             <td>
-                                {!! Form::checkbox('del-'.$row->id,1,false,['class' => 'single','data-id'=> $row->id]) !!}
+                                {!! $row->id !!}
                             </td>
                             <td>{{ $row->name }}</td>
                             <td>@if($row->photo != '')<img src="{{ asset('uploads/thumb') . '/'.  $row->photo }}">@endif</td>
                             <td>
-
+                              <a class="btn btn-default" href = '/cp/products/{{$row->id}}/edit'><i class = 'ion ion-edit'></i></a>
+                              <a class="btn btn-default" href = "/cp/products/{{$row->id}}/delete" ><i class = 'ion ion-trash-a'></i></a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div class="row">
-                <div class="col-xs-12">
-                    <button class="btn btn-danger" id="delete">
-                        delete ckeck
-                    </button>
-                </div>
-            </div>
-        </div>
-	</div>
 @else
     NotFound
 @endif

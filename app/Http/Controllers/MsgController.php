@@ -7,6 +7,8 @@ use App\Msg;
 use App\Http\Requests;
 use Validator;
 use Session;
+use Datatables;
+
 // use App\Http\Requests\MsgRequest;
 
 class MsgController extends Controller
@@ -18,8 +20,7 @@ class MsgController extends Controller
      */
     public function index()
     {
-        $msg = Msg::all();
-        return view('admin.msgs.index',compact('msg'));
+        return view('admin.msgs.index');
     }
 
     /**
@@ -116,4 +117,27 @@ class MsgController extends Controller
         Msg::destroy($id);
         return redirect('cp/msg');
     }
+
+
+    public function anyData()
+    {
+
+        $msg = Msg::select('id', 'name', 'email', 'phone');
+          return Datatables::of($msg)
+            ->editColumn('name', function($model){
+              return \Html::link('/cp/msg/' . $model->id , $model->name);
+            })
+            ->editColumn('control', function($model){
+              $all = '<a class="btn btn-default" href="/cp/msg/' . $model->id . '"><i class = "ion ion-paper-airplane"></i></a> ';
+              // $all .= '<a class="btn btn-default" href="/cp/msg/' . $model->id . '/edit"><i class = "ion ion-edit"></i></a> ';
+              $all .= '<a class="btn btn-default" href="/cp/msg/' . $model->id . '/delete"><i class = "ion ion-trash-a"></i></a>';
+              return $all;
+            })
+          ->make(true);
+
+    }
+
+
+
+
 }

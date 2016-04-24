@@ -39,7 +39,6 @@ class MenuController extends Controller
         return redirect('cp/menu');
     }
 
-
     public function edit($id)
     {
         $menu = Menu::findOrfail($id);

@@ -17,7 +17,7 @@
     </div>
 </div>
 <hr />
-@if(!isset($user))
+@if(!isset($user) )
   <div class="form-group has-feedback">
     {!! form::label("كلمة المرور", null ,['class' => 'col-sm-2 control-label']) !!}
     <div class="col-sm-10">

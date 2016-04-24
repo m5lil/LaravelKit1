@@ -24,8 +24,8 @@ Route::group(['middleware' => 'admin'], function () {
   Route::post('/cp/settings', 'SettingController@update');
 
   ///////////////////////////  Users  //////////////////////////////
-  Route::resource('/cp/users', 'UserController', ['except' => ['show']]);
   Route::get('/cp/users/data','UserController@anyData');
+  Route::resource('/cp/users', 'UserController', ['except' => ['show']]);
   Route::get('/cp/users/{id}/delete', 'UserController@destroy');
 
   ///////////////////////////  Pages  ///////////////////////////////
@@ -38,15 +38,26 @@ Route::group(['middleware' => 'admin'], function () {
   Route::post('/cp/cat/{id}/update','CatController@update');
   Route::get('/cp/cat/{id}/delete','CatController@destroy');
 
+  ///////////////////////////  Courses  ///////////////////////////////
+  Route::resource('/cp/courses','CoursesController', ['except' => ['show']]);
+  Route::post('/cp/courses/{id}/update','CoursesController@update');
+  Route::get('/cp/courses/{id}/delete','CoursesController@destroy');
+
   ///////////////////////////  Products  ////////////////////////////
   Route::resource('/cp/products','ProductsController', ['except' => ['show']]);
   Route::post('/cp/products/{id}/update','ProductsController@update');
   Route::get('/cp/products/{id}/delete','ProductsController@destroy');
 
-  ///////////////////////////  Products  ////////////////////////////
+  ///////////////////////////  Sliders  ////////////////////////////
   Route::resource('/cp/sliders','SliderController', ['except' => ['show']]);
   Route::post('/cp/sliders/{id}/update','SliderController@update');
   Route::get('/cp/sliders/{id}/delete','SliderController@destroy');
+
+  ///////////////////////////  Profiles  ////////////////////////////
+  Route::get('/cp/profiles/data','ProfileController@anyData');
+  Route::resource('/cp/profiles','ProfileController', ['except' => ['show']]);
+  Route::post('/cp/profiles/{id}/update','ProfileController@update');
+  Route::get('/cp/profiles/{id}/delete','ProfileController@destroy');
 
   ///////////////////////////  Menu  ////////////////////////////////
   Route::resource('/cp/menu','MenuController', ['except' => ['show']]);
@@ -59,7 +70,8 @@ Route::group(['middleware' => 'admin'], function () {
   Route::get('/cp/posts/{id}/delete','PostController@destroy');
   
   ///////////////////////////  Msg  ////////////////////////////////
-  Route::resource('/cp/msg','MsgController',  ['except' => ['create','store']]);
+  Route::get('/cp/msg/data','MsgController@anyData');
+  Route::resource('/cp/msg','MsgController',  ['except' => ['store']]);
   Route::post('/cp/msg/{id}/update','MsgController@update');
   Route::get('/cp/msg/{id}/delete','MsgController@destroy');
 
@@ -96,17 +108,19 @@ Route::group(['middleware' => 'web'], function () {
   // display user's drafts
   Route::get('/user/{id}/drafts','UserController@user_posts_draft');
   // display single post
-  Route::get('/posts/{slug}','PostController@show')->where('slug', '[A-Za-z0-9-_]+');
+  Route::get('/post/{slug}','PostController@show')->where('slug', '[A-Za-z0-9-_]+');
 
   Route::post('/comment/add','CommentController@store');
   // delete comment
   Route::post('/comment/delete/{id}','CommentController@distroy');
   // delete comment
-  Route::get('/{slug}', 'PageController@show')->where('slug', '[A-Za-z0-9-_]+');
+  Route::get('/page/{slug}', 'PageController@show')->where('slug', '[A-Za-z0-9-_]+');
 
   Route::get('/cat/{slug}', 'CatController@show')->where('slug', '[A-Za-z0-9-_]+');
 
   Route::get('/contact','MsgController@create');
 
   Route::post('/contact','MsgController@store');
+
+  Route::get('/profile/{id}','ProfileController@show');
 });

@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Msg extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+          'name',
+          'email',
+          'phone',
+          'content'
+    ];        
+
     public $timestamps = false;
 }

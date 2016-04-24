@@ -9,17 +9,14 @@
 @endsection
 
 @section('section.content')
-    <div class="panel panel-default ">
-      <div class="panel-heading"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg>@yield('title')</div>
-      <div class="panel-body">
-        <table class="table table-bordered" id="users-table">
+        <table class="table table-striped table-hover table-responsive datatable" id="users-table">
           <thead>
               <tr>
                   <th>#</th>
                   <th>الإسم</th>
                   <th>البريد الإلكترونى</th>
                   <th>الصلاحية</th>
-                  <th>عمليات</th>
+                  <th></th>
               </tr>
           </thead>
           {{-- <tbody>
@@ -40,14 +37,6 @@
           </tbody> --}}
 
         </table>
-      </div>
-
-      <div class="panel-footer">
-        <div class="input-group">
-
-        </div>
-      </div>
-    </div>
 
 @endsection
 
@@ -82,31 +71,6 @@
             ],
             iDisplayLength: 25,
             fixedHeader: true,
-
-            "oTableTools": {
-                "aButtons": [
-
-
-                    {
-                        "sExtends": "csv",
-                        "sButtonText": "ملف اكسل",
-                        "sCharSet": "utf16le"
-                    },
-                    {
-                        "sExtends": "copy",
-                        "sButtonText": "نسخ المعلومات",
-                    },
-                    {
-                        "sExtends": "print",
-                        "sButtonText": "طباعة",
-                        "mColumns": "visible",
-
-
-                    }
-                ],
-
-                "sSwfPath": "{{ Request::root()  }}/plugins/copy_csv_xls_pdf.swf"
-            },
 
             "dom": '<"pull-left text-left" T><"pullright" i><"clearfix"><"pull-right text-right col-lg-6" f > <"pull-left text-left" l><"clearfix">rt<"pull-right text-right col-lg-6" pi > <"pull-left text-left" l><"clearfix"> '
             ,initComplete: function ()

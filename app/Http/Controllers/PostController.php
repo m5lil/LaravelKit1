@@ -37,20 +37,12 @@ class PostController extends Controller
 		$post->title = $request->get('title');
 		$post->body = $request->get('body');
 		$post->photo = $request->get('photo');
+		$post->cat_id = $request->get('cat_id');
 		$post->slug = str_slug($post->title);
-		$post->author_id = $request->user()->id;
-		if($request->has('save'))
-		{
-			$post->active = 0;
-			$message = 'Post saved successfully';            
-		}            
-		else 
-		{
-			$post->active = 1;
-			$message = 'Post published successfully';
-		}
+		$post->author_id = \Auth::user()->id;
+		$post->active = 1;
 		$post->save();
-		return redirect('/cp/posts')->withMessage($message);
+		return redirect('/cp/posts');
 	}
 
 
@@ -95,20 +87,13 @@ class PostController extends Controller
 		  $request = $this->saveFiles($request);
 		  $post->title = $title;
 		  $post->body = $request->input('body');
+		$post->cat_id = $request->get('cat_id');
 		  $post->photo = $request->input('photo');
-		  if($request->has('save'))
-		  {
-		    $post->active = 0;
-		    $message = 'Post saved successfully';
-		    $landing = 'cp/posts/';
-		  }            
-		  else {
+
 		    $post->active = 1;
-		    $message = 'Post updated successfully';
 		    $landing = 'cp/posts/';
-		  }
 		  $post->save();
-		       return redirect($landing)->withMessage($message);
+		       return redirect($landing);
 		// }
 		// else
 		// {

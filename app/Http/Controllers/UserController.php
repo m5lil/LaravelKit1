@@ -69,8 +69,9 @@ class UserController extends Controller
           return $model->admin == 0 ? 'user' : 'admin';
         })
         ->editColumn('control', function($model){
-          $all = '<a href="/cp/users/' . $model->id . '/edit">Edit</a>';
-          $all .= '<a href="/cp/users/' . $model->id . '/delete">Delete</a>';
+              // $all = '<a class="btn btn-default" href="/cp/users/' . $model->id . '"><i class = "ion ion-paper-airplane"></i></a> ';
+              $all = '<a class="btn btn-default" href="/cp/users/' . $model->id . '/edit"><i class = "ion ion-edit"></i></a> ';
+              $all .= '<a class="btn btn-default" href="/cp/users/' . $model->id . '/delete"><i class = "ion ion-trash-a"></i></a>';
           return $all;
         })
       ->make(true);

@@ -53,16 +53,21 @@
 			<li class="active"><a href="{{url('/cp')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg><i class = 'icon ion-arrow-left-b'></i> لوحة التحكم</a></li>
       <br />
 			<li><a href="{{url('/cp/settings')}}"><i class = 'icon ion-gear-a'></i> الإعدادات</a></li>
-      			<li role="presentation" class="divider"></li>
-			<li><a href="{{url('/cp/page')}}"><i class = 'icon ion-arrow-left-b'></i> الصفحات</a></li>
-			<li><a href="{{url('/cp/menu')}}"><i class = 'icon ion-arrow-left-b'></i> القوائم</a></li>
-			<li><a href="{{url('/cp/settings')}}"><i class = 'icon ion-arrow-left-b'></i> تذاكر الدعم</a></li>
-			<li><a href="{{url('/cp/settings')}}"><i class = 'icon ion-arrow-left-b'></i> الرسائل</a></li>
-			<li><a href="{{url('/cp/settings')}}"><i class = 'icon ion-arrow-left-b'></i> الخدمات</a></li>
-			<li><a href="{{url('/cp/settings')}}"><i class = 'icon ion-arrow-left-b'></i> إتصل بنا</a></li>
-			<li><a href="{{url('/cp/settings')}}"><i class = 'icon ion-chatbubbles'></i> التعليقات</a></li>
-      			<li role="presentation" class="divider"></li>
-			<li><a href="{{url('/cp/users')}}"><i class = 'icon ion-person'></i> الأعضاء</a></li>
+  				<li role="presentation" class="divider"></li>
+			<li><a href="{{url('/cp/page')}}"><i class = 'icon ion-android-document'></i> الصفحات</a></li>
+			<li><a href="{{url('/cp/menu')}}"><i class = 'icon ion-android-menu'></i> القوائم</a></li>
+			<li><a href="{{url('/cp/msg')}}"><i class = 'icon ion-email'></i> الرسائل</a></li>
+  				<li role="presentation" class="divider"></li>
+			<li><a href="{{url('/cp/cat')}}"><i class = 'icon ion-filing'></i> الأقسام</a></li>
+			<li><a href="{{url('/cp/posts')}}"><i class = 'icon ion-folder'></i> المقالات</a></li>
+  				<li role="presentation" class="divider"></li>
+			<li><a href="{{url('/cp/sliders')}}"><i class = 'icon ion-easel'></i> السلايدر</a></li>
+			<li><a href="{{url('/cp/services')}}"><i class = 'icon ion-arrow-left-b'></i> الخدمات</a></li>
+			<li><a href="{{url('/cp/products')}}"><i class = 'icon ion-bag'></i> المنتجات</a></li>
+  				<li role="presentation" class="divider"></li>
+			<li><a href="{{url('/cp/users')}}"><i class = 'icon ion-person-stalker'></i> الأعضاء</a></li>
+			<li><a href="{{url('/cp/profiles')}}"><i class = 'icon ion-university'></i> المتدربين</a></li>
+			<li><a href="{{url('/cp/courses')}}"><i class = 'icon ion-university'></i> الكورسات</a></li>
 			{{-- <li class="parent ">
 				<a href="#">
 					<span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Dropdown
@@ -102,14 +107,14 @@
 		<div class="row">
 			<div class="col-md-12">
 
-                    @if (Session('message'))
-                      <div class="flash alert-info">
-                        <p class="panel-body">
-                          {{ Session::get('message') }}
-                          {{Session::forget('message')}}
-                        </p>
-                      </div>
-                      @endif
+        @if (Session('message'))
+          <div class="flash alert-info">
+            <p class="panel-body">
+              {{ Session::get('message') }}
+              {{Session::forget('message')}}
+            </p>
+          </div>
+          @endif
 	      
 		  @if ($errors->any())
 	      <div class='flash alert-danger'>
@@ -124,10 +129,35 @@
 	      @endif
 
 
-        @yield('section.content')
+<div class="panel panel-default ">
+	<div class="panel-heading">
+		<div class="pull-right">@yield('title')</div>
 		
+		<div class="pull-left">
+			@if (str_contains(Request::path(),'create') || str_contains(Request::path(),'edit') )
+			<a onclick="document.forms['form-with-validation'].submit(); return false;" class="btn btn-default" href="" role="button"><i class="ion ion-checkmark"></i></a>
+			<a class="btn btn-default" href="{{ URL::previous() }}" role="button"><i class="ion ion-android-arrow-back"></i></a>
+			@else
+			<a class="btn btn-default" href="{!! url( Request::path() . '/create') !!}" role="button"><i class="ion ion-plus"></i></a>
+			@endif
+						@if (str_contains(Request::path(),'edit') )
+			<a class="btn btn-default" href="{!! url( str_replace('edit','delete',Request::path())) !!}" role="button"><i class="ion ion-trash-a"></i></a>
+			@endif
 
-
+		</div>
+	</div>
+	<div class="panel-body">
+		@yield('section.content')
+		
+	</div>
+	<div class="panel-footer">
+		@if (str_contains(Request::path(),'create') || str_contains(Request::path(),'edit') )
+	{{--{!! Form::submit( 'حفظ' , array('class' => 'btn btn-primary btn-block')) !!}--}}	
+		{!! Form::close() !!}
+		@endif
+		
+	</div>
+</div>
 
 			</div><!--/.col-->
 
