@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Menu;
+use App\Page;
 use App\Http\Requests;
 
 class MenuController extends Controller
@@ -32,7 +33,7 @@ class MenuController extends Controller
         $menu = new Menu();
         $menu->parent_id = $input['parent_id'];
         $menu->title = $input['title'];
-        $menu->url = $input['url'];
+        $menu->url = in_array( $input['url'] , Page::lists('name','slug')->toArray()) ?  'page/'.$input['url'] : $input['url'] ;
         $menu->order = $input['order'];
         $menu->save();
 
@@ -53,7 +54,7 @@ class MenuController extends Controller
         $menu = Menu::findOrfail($id);
         $menu->parent_id = $input['parent_id'];
         $menu->title = $input['title'];
-        $menu->url = $input['url'];
+        $menu->url = in_array( $input['url'] , Page::lists('name','slug')->toArray()) ?  'page/'.$input['url'] : $input['url'] ;
         $menu->order = $input['order'];
         $menu->save();
 

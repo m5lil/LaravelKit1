@@ -4,10 +4,6 @@
   المقالات
 @endsection
 
-@section('css')
-  <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
-@endsection
-
 @section('section.content')
 
 {!! Form::open(array('files' => true,'action' => 'PostController@store', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}

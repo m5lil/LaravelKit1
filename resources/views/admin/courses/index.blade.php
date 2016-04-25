@@ -4,10 +4,6 @@
   الإقسام
 @endsection
 
-@section('css')
-  <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
-@endsection
-
 @section('section.content')
 
 @if ($courses->count())

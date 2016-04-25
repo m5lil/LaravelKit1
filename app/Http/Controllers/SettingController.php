@@ -25,7 +25,7 @@ class SettingController extends Controller
         $sitesupdate = $settings->where('set_name', $key)->first();
         $sitesupdate->fill([ 'value' => $req ])->save();
       }
-      Session::flash('message', 'This is a message!');
+      Session::put('message', 'تم الحفظ بنجاح !');
       return redirect('/cp/settings');
 
     }

@@ -4,6 +4,10 @@
   القوائم
 @endsection
 
+@section('css')
+  <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('section.content')
   {!! Form::open(array('action' => 'MenuController@store', 'id' => 'form-with-validation', 'class' => 'form-horizontal')) !!}
 
@@ -16,7 +20,7 @@
    <div class="form-group">
       {!! Form::label('url', 'الرابط*', array('class'=>'col-sm-2 control-label')) !!}
       <div class="col-sm-10">
-         {!! Form::text('url', old('url'), array('class'=>'form-control')) !!}
+         {!! Form::select('url',  \App\Page::lists('name','slug'), null, array('id'=>'a', 'class'=>'form-control')) !!}
       </div>
    </div>
    <div class="form-group">
@@ -42,5 +46,14 @@
 @endsection
 
 
+@section('js')
+  <script src="{{ asset('/js/select2.min.js') }}"></script>
+  <script type="text/javascript">
+    $('#a').select2({
+      placeholder: 'أكتب الرابط أو إختر الصفحة',
+      tags : true
+    });
+  </script>
 
+@endsection
 

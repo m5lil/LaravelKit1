@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-  المنتجات
+  المشاريع
 @endsection
 
 @section('section.content')
@@ -26,7 +26,11 @@
                                 {!! $row->id !!}
                             </td>
                             <td>{{ $row->name }}</td>
-                            <td>@if($row->photo != '')<img src="{{ asset('uploads/thumb') . '/'.  $row->photo }}">@endif</td>
+                            <td>
+                            @if($row->photo != '')
+                                <img src="{{ asset('uploads/thumb') . '/'.  $row->photo }}">
+                            @endif
+                            </td>
                             <td>
                               <a class="btn btn-default" href = '/cp/products/{{$row->id}}/edit'><i class = 'ion ion-edit'></i></a>
                               <a class="btn btn-default" href = "/cp/products/{{$row->id}}/delete" ><i class = 'ion ion-trash-a'></i></a>

@@ -63,7 +63,7 @@
   				<li role="presentation" class="divider"></li>
 			<li><a href="{{url('/cp/sliders')}}"><i class = 'icon ion-easel'></i> السلايدر</a></li>
 			<li><a href="{{url('/cp/services')}}"><i class = 'icon ion-arrow-left-b'></i> الخدمات</a></li>
-			<li><a href="{{url('/cp/products')}}"><i class = 'icon ion-bag'></i> المنتجات</a></li>
+			<li><a href="{{url('/cp/products')}}"><i class = 'icon ion-bag'></i> المشاريع</a></li>
   				<li role="presentation" class="divider"></li>
 			<li><a href="{{url('/cp/users')}}"><i class = 'icon ion-person-stalker'></i> الأعضاء</a></li>
 			<li><a href="{{url('/cp/profiles')}}"><i class = 'icon ion-university'></i> المتدربين</a></li>
@@ -137,10 +137,14 @@
 			@if (str_contains(Request::path(),'create') || str_contains(Request::path(),'edit') )
 			<a onclick="document.forms['form-with-validation'].submit(); return false;" class="btn btn-default" href="" role="button"><i class="ion ion-checkmark"></i></a>
 			<a class="btn btn-default" href="{{ URL::previous() }}" role="button"><i class="ion ion-android-arrow-back"></i></a>
-			@else
-			<a class="btn btn-default" href="{!! url( Request::path() . '/create') !!}" role="button"><i class="ion ion-plus"></i></a>
 			@endif
-						@if (str_contains(Request::path(),'edit') )
+
+			@unless (str_contains(Request::path(),'setting') || Request::path() == 'cp' )
+			<a class="btn btn-default" href="{!! url( Request::path() . '/create') !!}" role="button"><i class="ion ion-plus"></i></a>
+			@endunless
+			
+
+			@if (str_contains(Request::path(),'edit') )
 			<a class="btn btn-default" href="{!! url( str_replace('edit','delete',Request::path())) !!}" role="button"><i class="ion ion-trash-a"></i></a>
 			@endif
 

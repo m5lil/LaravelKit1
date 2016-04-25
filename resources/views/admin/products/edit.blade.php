@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-  المنتجات
+  المشاريع
 @endsection
 
 @section('section.content')
@@ -12,7 +12,6 @@
       {!! Form::label('name', 'Name*', array('class'=>'col-sm-2 control-label')) !!}
       <div class="col-sm-10">
           {!! Form::text('name', null, array('class'=>'form-control')) !!}
-          <p class="help-block">name of product</p>
       </div>
   </div><div class="form-group">
       {!! Form::label('photo', 'Photo*', array('class'=>'col-sm-2 control-label')) !!}
@@ -30,11 +29,7 @@
       </div>
   </div>
 
-  <div class="form-group">
-      <div class="col-sm-10 col-sm-offset-2">
-        {!! Form::submit( trans('quickadmin::templates.templates-view_create-create') , array('class' => 'btn btn-primary')) !!}
-      </div>
-  </div>
+
 
 
 @endsection
