@@ -137,12 +137,11 @@
 			@if (str_contains(Request::path(),'create') || str_contains(Request::path(),'edit') )
 			<a onclick="document.forms['form-with-validation'].submit(); return false;" class="btn btn-default" href="" role="button"><i class="ion ion-checkmark"></i></a>
 			<a class="btn btn-default" href="{{ URL::previous() }}" role="button"><i class="ion ion-android-arrow-back"></i></a>
-			@endif
-
-			@unless (str_contains(Request::path(),'setting') || Request::path() == 'cp' )
+			@elseif (str_contains(Request::path(),'setting') || Request::path() == 'cp' )
+			<a class="btn btn-default" href="{{ URL::previous() }}" role="button"><i class="ion ion-android-arrow-back"></i></a>
+			@else
 			<a class="btn btn-default" href="{!! url( Request::path() . '/create') !!}" role="button"><i class="ion ion-plus"></i></a>
-			@endunless
-			
+			@endif
 
 			@if (str_contains(Request::path(),'edit') )
 			<a class="btn btn-default" href="{!! url( str_replace('edit','delete',Request::path())) !!}" role="button"><i class="ion ion-trash-a"></i></a>
